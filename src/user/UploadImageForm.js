@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../auth/UserContext";
+import FrienderApi from "../api/api";
 
 /** Upload Image Form
  *
@@ -23,10 +24,13 @@ function UploadImageForm() {
     const data = new FormData();
     data.append('file', selectedFile);
     let url = `http://localhost:5000/users/${currentUser.id}/image-upload`;
+    
+    console.log("TOKEN =", FrienderApi.token);
     let headers = {
-      "Content-Type": "multipart/form-data"
+      "Content-Type": "multipart/form-data",
+      "Authorization": `${FrienderApi.token}`
     }
-    let result = await axios.post(url, data, headers);
+    let result = await axios({url, data, headers, method: "POST"});
     console.log('result of post request', result);
   }
 

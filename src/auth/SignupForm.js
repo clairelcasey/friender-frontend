@@ -21,7 +21,6 @@ function SignupForm({ signup }) {
     password: "",
     first_name: "",
     last_name: "",
-    image_url: "",
     hobbies: "",
     interests: "",
     zip_code: "",
@@ -109,15 +108,6 @@ function SignupForm({ signup }) {
                       name="last_name"
                       className="form-control"
                       value={formData.last_name}
-                      onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Image Upload</label>
-                  <input
-                      name="image_url"
-                      className="form-control"
-                      value={formData.image_url}
                       onChange={handleChange}
                   />
                 </div>
