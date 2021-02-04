@@ -16,18 +16,18 @@ class FrienderApi {
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
+    let headers;
+    if (FrienderApi.token) {
+      headers = { Authorization: `${FrienderApi.token}` };
+    }
 
     const url = `${BASE_URL}/${endpoint}`;
-    // const params = (method === "get")
-    //   ? data
-    //   : {};
-
-    const headers = {
-      'Content-Type': 'application/json'
-    };
+    const params = (method === "get")
+      ? data
+      : {};
 
     try {
-      return (await axios({ url, method, data, headers })).data;
+      return (await axios({ url, method, data, headers, params })).data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
@@ -40,14 +40,8 @@ class FrienderApi {
   /** Get the current user. */
 
   static async getCurrentUser(user_id) {
-    let data = { token: FrienderApi.token };
-    let res = await this.request(`users/${user_id}`, data, "POST");
+    let res = await this.request(`users/${user_id}`);
     return res.user;
-    // let res = await axios({
-    //   url: "http://localhost:5000/test",
-    //   data: {token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QifQ.o1sJL3jdWhf9LMqwubonW5FpJJdXhyMmBHQWaaZQ5_c"}, 
-    //   method: "POST"});
-    // console.log(res);
   }
 
   /** Get potential friends for a user */
@@ -63,8 +57,6 @@ class FrienderApi {
   static async login(data) {
     let res = await this.request(`login`, data, "post");
     return res.token;
-    // let res = await axios.get("http://localhost:5000/test");
-    // console.log(res);
   }
 
   /** Signup for site. */
