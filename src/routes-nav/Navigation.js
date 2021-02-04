@@ -23,6 +23,11 @@ function Navigation({ logout }) {
               Find Friends
             </NavLink>
           </li>
+          <li className="nav-item mr-4">
+            <NavLink className="nav-link" to="/upload-image">
+              Upload Image
+            </NavLink>
+          </li>
           <li className="nav-item">
             <Link className="nav-link" to="/" onClick={logout}>
               Log out {currentUser.first_name || currentUser.username}

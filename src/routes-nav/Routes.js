@@ -4,6 +4,7 @@ import Homepage from "../homepage/Homepage";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
+import UploadImageForm from "../user/UploadImageForm";
 // import PotentialFriendsList from "../friends/PotentialFriendsList";
 
 /** Site-wide routes.
@@ -39,6 +40,10 @@ function Routes({ login, signup }) {
 
           <PrivateRoute exact path="/find-friends">
             {/* <PotentialFriendsList /> */}
+          </PrivateRoute>
+
+          <PrivateRoute exact path="/upload-image">
+            <UploadImageForm />
           </PrivateRoute>
 
           <Redirect to="/" />
