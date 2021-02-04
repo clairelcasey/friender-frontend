@@ -15,7 +15,7 @@ import PotentialFriendsList from "../friends/PotentialFriendsList";
  * Visiting a non-existant route redirects to the homepage.
  */
 
-function Routes({ login, signup }) {
+function Routes({ login, signup, uploadImage }) {
   console.debug(
       "Routes",
       `login=${typeof login}`,
@@ -43,7 +43,7 @@ function Routes({ login, signup }) {
           </PrivateRoute>
 
           <PrivateRoute exact path="/upload-image">
-            <UploadImageForm />
+            <UploadImageForm uploadImage={uploadImage}/>
           </PrivateRoute>
 
           <Redirect to="/" />

@@ -1,0 +1,17 @@
+.FriendDetail {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .FriendDetail-title {
+    margin: 0 0 0.5em 0;
+  }
+  
+  .FriendDetail-small {
+    margin-top: 0.5em;
+    font-style: italic;
+  }
+  
+  .FriendDetail-image {
+    border-radius: 8px;
+  }

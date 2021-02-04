@@ -66,6 +66,19 @@ class FrienderApi {
     return res.token;
   }
 
+  /** Upload an image. */
+
+  static async uploadImage(data, user_id) {
+    let headers = {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `${FrienderApi.token}`
+    }
+    let url = `${BASE_URL}/users/${user_id}/image-upload`;
+    let method = "POST";
+    let res = await axios({ url, data, headers, method })
+    return res.image_url;
+  }
+
 }
 
 

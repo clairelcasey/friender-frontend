@@ -1,37 +1,47 @@
-import axios from "axios";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import UserContext from "../auth/UserContext";
-import FrienderApi from "../api/api";
+import Alert from "../common/Alert";
 
 /** Upload Image Form
  *
- *
+ * Params: 
+ * - uploadImage: parent fn to call when form submitted
+ * 
+ * State:
+ * - SelectedFile
+ * - formErrors
+ * 
  * Routes -> UploadImageForm
  */
 
-function UploadImageForm() {
+function UploadImageForm({ uploadImage }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const { currentUser } = useContext(UserContext);
+  const history = useHistory();
+  const [formErrors, setFormErrors] = useState([]);
 
-  function handleChange(evt){
+
+  function handleChange(evt) {
     console.log('handleChange, file is', evt.target.files[0]);
     setSelectedFile(evt.target.files[0])
   }
 
-  async function handleSubmit(evt){
+  /* Handle submit. Create a new FormData instance, add file, and call
+  uploadImage (parent fn) with data. If success, push to /find-friends */
+  
+  // TODO: Add functionality to only allow image files
+  // TODO: Create drag & drop functionality for images
+  async function handleSubmit(evt) {
     evt.preventDefault();
     const data = new FormData();
     data.append('file', selectedFile);
-    let url = `http://localhost:5000/users/${currentUser.id}/image-upload`;
-    
-    console.log("TOKEN =", FrienderApi.token);
-    let headers = {
-      "Content-Type": "multipart/form-data",
-      "Authorization": `${FrienderApi.token}`
+
+    let result = await uploadImage(data);
+
+    if (result.success) {
+      history.push("/find-friends");
+    } else {
+      setFormErrors(result.errors);
     }
-    let result = await axios({url, data, headers, method: "POST"});
-    console.log('result of post request', result);
   }
 
 
@@ -50,6 +60,9 @@ function UploadImageForm() {
           type="submit">
           Submit Image
         </button>
+        {formErrors.length
+          ? <Alert type="danger" messages={formErrors} />
+          : null}
       </form>
     </div>
   )

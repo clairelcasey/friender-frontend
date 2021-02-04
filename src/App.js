@@ -113,6 +113,16 @@ function App() {
     }
   }
 
+  async function uploadImage(imgData) {
+    try {
+      let image = await FrienderApi.uploadImage(imgData, currentUser.id);
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
+
 
   // /** Apply to a job: make API call and update set of application IDs. */
   // function applyToJob(id) {
@@ -129,7 +139,7 @@ function App() {
         value={{ currentUser, setCurrentUser, potentialFriends}}>
         <div className="App">
           <Navigation logout={logout} />
-          <Routes login={login} signup={signup} />
+          <Routes login={login} signup={signup} uploadImage={uploadImage} />
         </div>
       </UserContext.Provider>
     </BrowserRouter>
