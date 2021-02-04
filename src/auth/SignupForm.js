@@ -7,7 +7,7 @@ import Alert from "../common/Alert";
  * Shows form and manages update to state on changes.
  * On submission:
  * - calls signup function prop
- * - redirects to /companies route
+ * - redirects to /find-friends route
  *
  * Routes -> SignupForm -> Alert
  * Routed as /signup
@@ -17,10 +17,16 @@ function SignupForm({ signup }) {
   const history = useHistory();
   const [formData, setFormData] = useState({
     username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
     email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+    image_url: "",
+    hobbies: "",
+    interests: "",
+    zip_code: "",
+    coordinates: "",
+    friend_radius_miles: "",
   });
   const [formErrors, setFormErrors] = useState([]);
 
@@ -40,7 +46,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      history.push("/companies");
+      history.push("/find-friends");
     } else {
       setFormErrors(result.errors);
     }
@@ -69,6 +75,15 @@ function SignupForm({ signup }) {
                   />
                 </div>
                 <div className="form-group">
+                  <label>Email</label>
+                  <input
+                      name="email"
+                      className="form-control"
+                      value={formData.email}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
                   <label>Password</label>
                   <input
                       type="password"
@@ -80,30 +95,67 @@ function SignupForm({ signup }) {
                 </div>
 
                 <div className="form-group">
-                  <label>First name</label>
+                  <label>First Name</label>
                   <input
-                      name="firstName"
+                      name="first_name"
                       className="form-control"
-                      value={formData.firstName}
+                      value={formData.first_name}
                       onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Last name</label>
+                  <label>Last Name</label>
                   <input
-                      name="lastName"
+                      name="last_name"
                       className="form-control"
-                      value={formData.lastName}
+                      value={formData.last_name}
                       onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Image Upload</label>
                   <input
-                      type="email"
-                      name="email"
+                      name="image_url"
                       className="form-control"
-                      value={formData.email}
+                      value={formData.image_url}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Hobbies</label>
+                  <input
+                      name="hobbies"
+                      className="form-control"
+                      value={formData.hobbies}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Interests</label>
+                  <input
+                      name="interests"
+                      className="form-control"
+                      value={formData.interests}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Zip Code</label>
+                  <input
+                      name="zip_code"
+                      className="form-control"
+                      value={formData.zip_code}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Friend Radius (Miles)</label>
+                  <input
+                      type="number"
+                      min="0"
+                      name="friend_radius_miles"
+                      className="form-control"
+                      value={formData.friend_radius_miles}
                       onChange={handleChange}
                   />
                 </div>

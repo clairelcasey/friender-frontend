@@ -16,8 +16,8 @@ import Alert from "../common/Alert";
 function LoginForm({ login }) {
   const history = useHistory();
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    username: "test",
+    password: "password",
   });
   const [formErrors, setFormErrors] = useState([]);
 
