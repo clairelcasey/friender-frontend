@@ -38,6 +38,8 @@ Friender app (like Tinder, but for making new friends during quarantine)
     * Unlike already liked person
     * Like already unliked person
 * Search by hobbies/interests
+* Add map to potential friends
+    * Pin on the potential friend's zip code center 
 
 
 
