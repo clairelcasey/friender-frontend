@@ -1,3 +1,47 @@
+# About the Project
+
+Friender app (like Tinder, but for making new friends during quarantine)
+* Backend built with:
+    * Flask
+    * Flask WTForms
+    * PostgreSQL database
+    * SQL Alchemy
+    * Amazon S3
+    * Mapbox
+    * Geopy
+* Frontend built with:
+    * React
+
+## Friender Functionality:
+* Login/authentication
+* Users can sign up with: username, email, password, first name, last name, hobbies, interests, location (zip code), and friend radius (in miles)
+* Once users login, they can optionally upload photos (Images are stored to Amazon S3).
+* User are show potential friends list and can like or dislike each potential friend
+* Users are shown other users (name, hobbies, interests, pics) who meet the following criteria:
+    1. Other user's location is within friend radius
+    2. User's location is within other user's friend radius
+    3. User has not yet liked or disliked the other user
+    4. User has not been disliked yet by the other user
+
+
+## Todos:
+* Add testing
+* Styling
+* Messages
+    * If two users both say yes for friend match, they should be able to message each other
+* Image uploads    
+    * User image upload validation for image file types only
+    * Drag and drop file upload
+* Profile
+    * Edit profile
+* Friends List
+    * Unlike already liked person
+    * Like already unliked person
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

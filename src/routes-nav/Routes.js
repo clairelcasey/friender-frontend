@@ -4,8 +4,8 @@ import Homepage from "../homepage/Homepage";
 import LoginForm from "../auth/LoginForm";
 import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
-import UploadImageForm from "../user/UploadImageForm";
 import PotentialFriendsList from "../friends/PotentialFriendsList";
+import Profile from "../user/Profile";
 
 /** Site-wide routes.
  *
@@ -13,9 +13,11 @@ import PotentialFriendsList from "../friends/PotentialFriendsList";
  * wrapped by <PrivateRoute>, which is an authorization component.
  *
  * Visiting a non-existant route redirects to the homepage.
+ * 
+ * App -> Routes -> {LoginForm, SignupForm, PotentialFriendsList, Profile}
  */
 
-function Routes({ login, signup, uploadImage }) {
+function Routes({ login, signup, uploadImage, like, dislike }) {
   console.debug(
       "Routes",
       `login=${typeof login}`,
@@ -39,11 +41,11 @@ function Routes({ login, signup, uploadImage }) {
           </Route>
 
           <PrivateRoute exact path="/find-friends">
-            <PotentialFriendsList />
+            <PotentialFriendsList like={like} dislike={dislike}/>
           </PrivateRoute>
 
-          <PrivateRoute exact path="/upload-image">
-            <UploadImageForm uploadImage={uploadImage}/>
+          <PrivateRoute exact path="/profile">
+            <Profile uploadImage={uploadImage} />
           </PrivateRoute>
 
           <Redirect to="/" />

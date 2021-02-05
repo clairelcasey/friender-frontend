@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Alert from "../common/Alert";
 
 /** Upload Image Form
@@ -16,12 +15,10 @@ import Alert from "../common/Alert";
 
 function UploadImageForm({ uploadImage }) {
   const [selectedFile, setSelectedFile] = useState(null);
-  const history = useHistory();
   const [formErrors, setFormErrors] = useState([]);
 
-
+  /* Handle form input changes */
   function handleChange(evt) {
-    console.log('handleChange, file is', evt.target.files[0]);
     setSelectedFile(evt.target.files[0])
   }
 
@@ -32,18 +29,16 @@ function UploadImageForm({ uploadImage }) {
   // TODO: Create drag & drop functionality for images
   async function handleSubmit(evt) {
     evt.preventDefault();
+    
     const data = new FormData();
     data.append('file', selectedFile);
 
     let result = await uploadImage(data);
 
-    if (result.success) {
-      history.push("/find-friends");
-    } else {
+    if (!result.success) {
       setFormErrors(result.errors);
     }
   }
-
 
   return (
     <div>

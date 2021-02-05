@@ -16,8 +16,8 @@ import Alert from "../common/Alert";
 function LoginForm({ login }) {
   const history = useHistory();
   const [formData, setFormData] = useState({
-    username: "test",
-    password: "password",
+    username: "",
+    password: "",
   });
   const [formErrors, setFormErrors] = useState([]);
 
@@ -30,7 +30,7 @@ function LoginForm({ login }) {
 
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful, redirect to /companies.
+   * Calls login func prop and, if successful, redirect to /find-friends.
    */
 
   async function handleSubmit(evt) {
@@ -44,6 +44,7 @@ function LoginForm({ login }) {
   }
 
   /** Update form data field */
+
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData(l => ({ ...l, [name]: value }));

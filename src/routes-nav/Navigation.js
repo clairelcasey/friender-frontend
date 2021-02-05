@@ -8,12 +8,16 @@ import "./Navigation.css";
  * When user is logged in, shows links to main areas of site. When not,
  * shows link to Login and Signup forms.
  *
- * Rendered by App.
+ * Context:
+ * -currentUser: array of objects 
+ *         [ {username, email, first_name, last_name, image_url, 
+ *            hobbies, interests, zip_code, friend_radius_miles}, ... ]
+ *
+ * App -> Navigation -> {Friender, Login/Signup, Find Friends, Profile, Log Out}
  */
 
 function Navigation({ logout }) {
   const { currentUser } = useContext(UserContext);
-  console.debug("Navigation", "currentUser=", currentUser);
 
   function loggedInNav() {
     return (
@@ -24,8 +28,8 @@ function Navigation({ logout }) {
             </NavLink>
           </li>
           <li className="nav-item mr-4">
-            <NavLink className="nav-link" to="/upload-image">
-              Upload Image
+            <NavLink className="nav-link" to="/profile">
+              Profile
             </NavLink>
           </li>
           <li className="nav-item">

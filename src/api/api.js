@@ -14,6 +14,9 @@ class FrienderApi {
   // the token for interactive with the API will be stored here.
   static token;
 
+  /* Template for axios requests. User enters endpoint, data (optional),
+   method (optional). Returns axios response data. */
+   
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
     let headers;
@@ -47,8 +50,7 @@ class FrienderApi {
   /** Get potential friends for a user */
 
   static async getPotentialFriends(user_id) {
-    let data = { token: FrienderApi.token };
-    let res = await this.request(`users/${user_id}/potentials`, data, "POST");
+    let res = await this.request(`users/${user_id}/potentials`);
     return res.user_options
   }
 
@@ -76,7 +78,22 @@ class FrienderApi {
     let url = `${BASE_URL}/users/${user_id}/image-upload`;
     let method = "POST";
     let res = await axios({ url, data, headers, method })
-    return res.image_url;
+
+    return res.data.image_url;
+  }
+
+  /** Like a potential friend. */
+
+  static async likePotentialFriend(other_id) {
+    let res = await this.request(`/users/like/${other_id}`, {}, "post");
+    return res.status;
+  }
+  
+  /** Dislike a potential friend. */
+
+  static async dislikePotentialFriend(other_id) {
+    let res = await this.request(`/users/dislike/${other_id}`, {}, "post");
+    return res.status;
   }
 
 }

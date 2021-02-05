@@ -38,12 +38,13 @@ function SignupForm({ signup }) {
 
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful, redirect to /companies.
+   * Calls login func prop and, if successful, redirect to /find-friends.
    */
 
   async function handleSubmit(evt) {
     evt.preventDefault();
     let result = await signup(formData);
+
     if (result.success) {
       history.push("/find-friends");
     } else {
@@ -52,6 +53,7 @@ function SignupForm({ signup }) {
   }
 
   /** Update form data field */
+
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData(data => ({ ...data, [name]: value }));
@@ -160,7 +162,7 @@ function SignupForm({ signup }) {
                     className="btn btn-primary float-right"
                     onSubmit={handleSubmit}
                 >
-                  Submit
+                  Sign Up
                 </button>
               </form>
             </div>

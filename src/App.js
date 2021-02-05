@@ -113,9 +113,12 @@ function App() {
     }
   }
 
+  /* Handles uploading of image */
   async function uploadImage(imgData) {
     try {
       let image = await FrienderApi.uploadImage(imgData, currentUser.id);
+      setCurrentUser(currentUser => ({...currentUser, image_url: image}));
+
       return { success: true };
     } catch (errors) {
       console.error("login failed", errors);
@@ -123,13 +126,33 @@ function App() {
     }
   }
 
+  /* Handles liking of potential friend */
+  async function likePotentialFriend(otherId) {
+    try {
+      await FrienderApi.likePotentialFriend(otherId);
 
-  // /** Apply to a job: make API call and update set of application IDs. */
-  // function applyToJob(id) {
-  //   if (hasAppliedToJob(id)) return;
-  //   JoblyApi.applyToJob(currentUser.username, id);
-  //   setApplicationIds(new Set([...applicationIds, id]));
-  // }
+      setPotentialFriends(potentialFriends => potentialFriends.filter(f => f.id !== otherId));
+
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
+  
+  /* Handles disliking of potential friend */
+  async function dislikePotentialFriend(otherId) {
+    try {
+      await FrienderApi.dislikePotentialFriend(otherId);
+
+      setPotentialFriends(potentialFriends => potentialFriends.filter(f => f.id !== otherId));
+
+      return { success: true };
+    } catch (errors) {
+      console.error("login failed", errors);
+      return { success: false, errors };
+    }
+  }
 
   if (!infoLoaded) return <LoadingSpinner />;
 
@@ -139,7 +162,12 @@ function App() {
         value={{ currentUser, setCurrentUser, potentialFriends}}>
         <div className="App">
           <Navigation logout={logout} />
-          <Routes login={login} signup={signup} uploadImage={uploadImage} />
+          <Routes 
+            login={login}
+            signup={signup}
+            uploadImage={uploadImage}
+            like={likePotentialFriend}
+            dislike={dislikePotentialFriend} />
         </div>
       </UserContext.Provider>
     </BrowserRouter>
