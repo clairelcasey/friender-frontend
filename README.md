@@ -37,6 +37,7 @@ Friender app (like Tinder, but for making new friends during quarantine)
 * Friends List
     * Unlike already liked person
     * Like already unliked person
+* Search by hobbies/interests
 
 
 
